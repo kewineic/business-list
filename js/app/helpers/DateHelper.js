@@ -5,9 +5,13 @@ class DateHelper{
     }
 
     static stringToDate(string){
-        return new Date(...
-            string.value
-            .split("-")
+        
+        if(!/\d{4}-\d{2}-\d{2}/.test(string)){
+            throw new Error('The date must be in the format yyyy-mm-dd');
+        }
+
+        return new Date(...string
+            .split('-')
             .map((item, index) => {
                 if(index == 1){
                     return item - 1

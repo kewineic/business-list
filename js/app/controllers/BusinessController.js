@@ -14,7 +14,7 @@ class BusinessController{
         event.preventDefault();
         
         let business = new Business(
-            DateHelper.stringToDate(this._inputDate), 
+            DateHelper.stringToDate(this._inputDate.value), 
             this._inputAmount.value,
             this._inputValue.value,
         );
