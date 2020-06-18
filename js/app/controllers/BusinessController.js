@@ -12,13 +12,13 @@ class BusinessController{
 
     add(event){
         event.preventDefault();
-
-        let dateHelper = new DateHelper()
         
         let business = new Business(
-            dateHelper.stringToDate(this._inputDate), 
+            DateHelper.stringToDate(this._inputDate), 
             this._inputAmount.value,
             this._inputValue.value,
         );
+
+        console.log(business)
     }   
 }

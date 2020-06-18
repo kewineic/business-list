@@ -1,6 +1,10 @@
 class DateHelper{
 
-    stringToDate(string){
+    constructor(){
+        throw new Error('This class cannot be instantiated! Please call the static method..');
+    }
+
+    static stringToDate(string){
         return new Date(...
             string.value
             .split("-")
@@ -11,11 +15,10 @@ class DateHelper{
                 return item
             })
         );
-
     }
 
-    dateToString(date){
-        return `${ date.getDate() }/${ (date.getMonth() + 1) }/${ date.getFullYear() }` 
+    static dateToString(date){
+        return `${date.getDate()}/${(date.getMonth() + 1)}/${date.getFullYear()}` 
     }
 
 }
