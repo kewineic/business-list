@@ -6,11 +6,15 @@ class BusinessController{
         this._inputAmount = $("#amount");
         this._inputValue = $("#value");   
         this._businessList = new BusinessList();
+        this._businessView = new BusinessView($("#businessView"));
+
+        this._businessView.update(this._businessList);
     }
 
     add(event){
         event.preventDefault();
         this._businessList.add(this._createNegotiation());
+        this._businessView.update(this._businessList);
         this._cleanForm();
     }   
 
