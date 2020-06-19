@@ -1,10 +1,10 @@
-class BusinessView{
+class BusinessView extends View{
 
     constructor(element){
-        this._element = element;
+        super(element);
     }
 
-    _template(model){
+    template(model){
         return `
         <table class="table table-hover table-bordered">
             <thead>
@@ -17,24 +17,23 @@ class BusinessView{
             </thead>
         
             <tbody>
-                ${model.negotiations.map(item => {
-                    return `
-                    <tr>
-                        <td>${DateHelper.dateToString(item.date)}</td>
-                        <td>${item.amount}</td>
-                        <td>${item.value}</td>
-                        <td>${item.volume}</td>
-                    </tr>
-                    `
-                }).join('')}
+                ${model.negotiations.map(item =>`
+                        <tr>
+                            <td>${DateHelper.dateToString(item.date)}</td>
+                            <td>${item.amount}</td>
+                            <td>${item.value}</td>
+                            <td>${item.volume}</td>
+                        </tr>
+                    `).join('')}
             </tbody>
         
             <tfoot>
+                <td colspan="3"></td>
+                <td>
+                    ${model.negotiations.reduce((total, item)=> total + item.volume, 0.0)}
+                </td>
             </tfoot>
         </table>`
     }
 
-    update(model){
-        this._element.innerHTML = this._template(model);
-    }
 }
