@@ -16,12 +16,19 @@ class BusinessController{
     add(event){
         event.preventDefault();
         this._businessList.add(this._createNegotiation());
-        this._message.texto = "Negociação adicionada com sucesso!"
+        this._message.text = "Negociação adicionada com sucesso!"
         this._messageView.update(this._message);
         this._businessView.update(this._businessList);
         
         this._cleanForm();
     }   
+
+    exclude(){
+        this._businessList.delete();
+        this._businessView.update(this._businessList);
+        this._message.text = "Lista de negociação apagada com sucesso!";
+        this._messageView.update(this._message);
+    }
 
     _createNegotiation(){
         return new Business(
