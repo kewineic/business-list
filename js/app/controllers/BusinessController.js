@@ -5,29 +5,32 @@ class BusinessController{
         this._inputDate = $("#date");
         this._inputAmount = $("#amount");
         this._inputValue = $("#value");   
-        this._businessList = new BusinessList();
-        this._businessView = new BusinessView($("#businessView"));
-        this._businessView.update(this._businessList);
-        this._message = new Message();
-        this._messageView = new MessageView($("#messageView"));
-        this._messageView.update(this._message);
+
+   
+        this._businessList = new Bind(
+                new BusinessList(),
+                new BusinessView($("#businessView")),
+                'add', 'delete'
+        );
+      
+    
+        this._message = new Bind(
+            new Message(),
+            new MessageView($("#messageView")),
+            'text'
+        );
     }
 
     add(event){
         event.preventDefault();
         this._businessList.add(this._createNegotiation());
         this._message.text = "Negociação adicionada com sucesso!"
-        this._messageView.update(this._message);
-        this._businessView.update(this._businessList);
-        
         this._cleanForm();
     }   
 
     exclude(){
         this._businessList.delete();
-        this._businessView.update(this._businessList);
         this._message.text = "Lista de negociação apagada com sucesso!";
-        this._messageView.update(this._message);
     }
 
     _createNegotiation(){

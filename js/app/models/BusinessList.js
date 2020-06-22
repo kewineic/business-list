@@ -7,11 +7,12 @@ class BusinessList{
         this._businessList.push(negotiation);
     }
 
+    get negotiations(){
+       return [].concat(this._businessList);
+    }
+
     delete(){
         this._businessList = [];
     }
 
-    get negotiations(){
-       return [].concat(this._businessList);
-    }
 }
