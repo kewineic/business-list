@@ -3,22 +3,23 @@ class ProxyFactory{
     static create(object, props, action){
         return new Proxy(object, {
             get(target, prop, receiver){
-                if(['add', 'delete'].includes(prop) && ProxyFactory._isFunction(target[prop])){
+                if(props.includes(prop) && ProxyFactory._isFunction(target[prop])){
                     return function(){
-                        Reflect.apply(target[prop], target, arguments);
-
-                        return action(target);
+                        let returnReflect = Reflect.apply(target[prop], target, arguments);
+                        action(target);
+                        return returnReflect
                     }
                 }
                 return Reflect.get(target, prop, receiver);
             },
 
             set(target, prop, value, receiver){
+
+                let returnReflect = Reflect.set(target, prop, value, receiver);
                 if(props.includes(prop)){
-                    target[prop] = value;
                     action(target);
                 }
-                return Reflect.set(target, prop, value, receiver);
+                return returnReflect; 
               
             }
         });
