@@ -30,7 +30,7 @@ class BusinessView extends View{
             <tfoot>
                 <td colspan="3"></td>
                 <td>
-                    ${model.negotiations.reduce((total, item)=> total + item.volume, 0.0)}
+                    ${model.totalVolume}
                 </td>
             </tfoot>
         </table>`

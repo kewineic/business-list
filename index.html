@@ -42,7 +42,7 @@
     </form>
     
     <div class="text-center">
-        <button class="btn btn-primary text-center" type="button">
+        <button onclick="businessController.importBusiness()" class="btn btn-primary text-center" type="button">
             Importar Negociações
         </button>
         <button onclick="businessController.exclude()" class="btn btn-primary text-center" type="button">
@@ -68,6 +68,7 @@
     <script src="./js/app/controllers/BusinessController.js"></script>
     <script src="./js/app/services/ProxyFactory.js"></script>
     <script src="./js/app/helpers/Bind.js"></script>
+    <script src="./js/app/services/BusinessService.js"></script>
 
     <script>
         let businessController = new BusinessController;

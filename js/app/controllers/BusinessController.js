@@ -28,6 +28,23 @@ class BusinessController{
         this._cleanForm();
     }   
 
+    importBusiness(){
+
+        let service = new BusinessService;   
+
+        Promise.all([
+                service.importBusiness(),
+                service.businessImportLastWeek(),
+                service.businessImportWeekBeforeLast()
+            ]).then(business => {
+                business
+                .reduce((flatArray, array) => flatArray.concat(array), [])
+                .forEach(business => this._businessList.add(business));
+                this._message.text = 'Negociações importadas com sucesso';
+            })
+            .catch(err => this.message.text = err);
+    }
+
     exclude(){
         this._businessList.delete();
         this._message.text = "Lista de negociação apagada com sucesso!";

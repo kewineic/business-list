@@ -15,4 +15,8 @@ class BusinessList{
         this._businessList = [];
     }
 
+    get totalVolume(){
+        return this.negotiations.reduce((total, item) => total + item.volume, 0.0)
+    }
+
 }
