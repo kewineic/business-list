@@ -31,18 +31,13 @@ class BusinessController{
     importBusiness(){
 
         let service = new BusinessService;   
-
-        Promise.all([
-                service.importBusiness(),
-                service.businessImportLastWeek(),
-                service.businessImportWeekBeforeLast()
-            ]).then(business => {
-                business
-                .reduce((flatArray, array) => flatArray.concat(array), [])
-                .forEach(business => this._businessList.add(business));
-                this._message.text = 'Negociações importadas com sucesso';
+        service
+            .getAllBusiness()
+            .then(response => {
+                response.forEach(business => this._businessList.add(business));
+                this._message.text = 'Negociações do período importadas com sucesso';
             })
-            .catch(err => this.message.text = err);
+            .catch(err => this._message.text = err);
     }
 
     exclude(){

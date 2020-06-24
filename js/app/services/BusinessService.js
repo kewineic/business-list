@@ -1,69 +1,60 @@
 class BusinessService{
 
-    importBusiness(){
-        return new Promise((resolve, reject) => {
-            let xhr = new XMLHttpRequest();
-            xhr.open('GET', 'negociacoes/semana');
-            xhr.onreadystatechange = () => {
-                if(xhr.readyState == 4){
-                    if(xhr.status == 200){
+    constructor(){
+        this.http = new HttpService();
+    }
 
-                        resolve(JSON.parse(xhr.responseText)
-                            .map(object => new Business(new Date(object.data), object.quantidade, object.valor)));
-                    
-                    }else{
+    getAllBusiness(){
+        return Promise.all([
+            this.importBusiness(),
+            this.businessImportLastWeek(),
+            this.businessImportWeekBeforeLast()
+        ]).then(periods => {
+            let business = periods
+                .reduce((data, period) => data.concat(period), []);
+            return business
+        }).catch(err =>{
+            throw new Error(err);
+        });
+    }
 
-                        console.log(xhr.responseText);
-                        reject('Não foi possível obter as negociações da semana');
-                    }
-                }
-            };
-            xhr.send();
-       });
-    }   
+    importBusiness(){ 
+        return this.http
+            .get('negociacoes/semana')
+            .then(response => {
+                return response.map(business =>
+                    new Business(new Date(business.data), business.quantidade, business.valor));
+            })
+            .catch(err => {
+                console.log(err);
+                throw new Error('Não foi possível obter as negociações da semana..');
+            })
+    }
 
     businessImportLastWeek(){
-        return new Promise((resolve, reject) => {
-            let xhr = new XMLHttpRequest();
-            xhr.open('GET', 'negociacoes/anterior');
-            xhr.onreadystatechange = () => {
-                if(xhr.readyState == 4){
-                    if(xhr.status == 200){
-
-                        resolve(JSON.parse(xhr.responseText)
-                            .map(object => new Business(new Date(object.data), object.quantidade, object.valor)));
-                        
-                    }else{
-
-                        console.log(xhr.responseText);
-                        reject('Não foi possível obter as negociações da semana anterior');
-                    }
-                }
-            };
-            xhr.send();
-       });
+        return this.http
+            .get('negociacoes/anterior')
+            .then(response => {
+                return response.map(business =>
+                    new Business(new Date(business.data), business.quantidade, business.valor));
+            })
+            .catch(err => {
+                console.log(err);
+                throw new Error('Não foi possível obter as negociações da semana anterior..');
+            })
     }   
 
     businessImportWeekBeforeLast(){
-        return new Promise((resolve, reject) => {
-            let xhr = new XMLHttpRequest();
-            xhr.open('GET', 'negociacoes/retrasada');
-            xhr.onreadystatechange = () => {
-                if(xhr.readyState == 4){
-                    if(xhr.status == 200){
-
-                        resolve(JSON.parse(xhr.responseText)
-                            .map(object => new Business(new Date(object.data), object.quantidade, object.valor)));
-                        
-                    }else{
-
-                        console.log(xhr.responseText);
-                        reject('Não foi possível obter as negociações da semana retrasada');
-                    }
-                }
-            };
-            xhr.send();
-        });
+        return this.http
+            .get('negociacoes/retrasada')
+            .then(response => {
+                return response.map(business =>
+                    new Business(new Date(business.data), business.quantidade, business.valor));
+            })
+            .catch(err => {
+                console.log(err);
+                throw new Error('Não foi possível obter as negociações da semana retrasada..');
+            })
     }   
 
     exclude(){
