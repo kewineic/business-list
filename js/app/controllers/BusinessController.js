@@ -24,9 +24,21 @@ class BusinessController{
 
     add(event){
         event.preventDefault();
-        this._businessList.add(this._createNegotiation());
-        this._message.text = "Negociação adicionada com sucesso!"
-        this._cleanForm();
+
+        ConnectionFactory
+            .getConnection()
+            .then(connection => {
+                let business = this._createNegotiation();
+                alert('funfou')
+                new BusinessDao(connection)
+                    .add(business)
+                    .then(() => {    
+                        this._businessList.add(business);
+                        this._message.text = 'Negociação adicionada com sucesso';
+                        this._cleanForm();
+                    });
+            })
+            .catch(erro => this.message.text = erro);
     }   
 
     importBusiness(){
