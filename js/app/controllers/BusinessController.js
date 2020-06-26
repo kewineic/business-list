@@ -5,12 +5,13 @@ class BusinessController{
         this._inputDate = $("#date");
         this._inputAmount = $("#amount");
         this._inputValue = $("#value");   
+        this._currentSort = '';
 
    
         this._businessList = new Bind(
                 new BusinessList(),
                 new BusinessView($("#businessView")),
-                'add', 'delete'
+                'add', 'delete', 'sortting', 'reverseSortting'
         );
       
     
@@ -58,5 +59,14 @@ class BusinessController{
         this._inputAmount.value = 1;
         this._inputValue.value = 0.0;
         this._inputDate.focus();
+    }
+
+    sortting(column){
+        if(this._currentSort == column){
+            this._businessList.reverseSortting();
+        }else{
+            this._businessList.sortting((a, b) => a[column] - b[column]);
+        }
+        this._currentSort = column;
     }
 }

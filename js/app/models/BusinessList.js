@@ -19,4 +19,13 @@ class BusinessList{
         return this.negotiations.reduce((total, item) => total + item.volume, 0.0)
     }
 
+    sortting(criterion){
+        this._businessList.sort(criterion);
+    }
+
+    reverseSortting(){
+        this._businessList.reverse();
+    }
+
+
 }
