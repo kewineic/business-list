@@ -18,7 +18,7 @@ var ConnectionFactory = (function(){
                 let openRequest = window.indexedDB.open(dbName, version);
 
                 openRequest.onupgradeneeded = e => {
-                    ConnectionFacoty._createStores(e.target.result);
+                    ConnectionFactory._createStores(e.target.result);
                 }
 
                 openRequest.onsuccess = e => {
@@ -40,15 +40,15 @@ var ConnectionFactory = (function(){
             });
 
         }
-
+        
         static _createStores(connection){
-            stores.forEach(store => {
 
-                if(connection.createObjectStoreNames.contains(store)){
+            console.log(connection)
+            stores.forEach(store => {
+                if(connection.objectStoreNames.contains(store)){
                     connection.deleteObjectStore(store);
                 }
                 connection.createObjectStore(store, { autoIncrement: true });
-
             });
         }
 

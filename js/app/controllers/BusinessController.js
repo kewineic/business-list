@@ -38,7 +38,7 @@ class BusinessController{
                         this._cleanForm();
                     });
             })
-            .catch(erro => this.message.text = erro);
+            .catch(erro => this._message.text = erro);
     }   
 
     importBusiness(){
