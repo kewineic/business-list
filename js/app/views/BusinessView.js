@@ -22,7 +22,7 @@ class BusinessView extends View{
                             <td>${DateHelper.dateToString(item.date)}</td>
                             <td>${item.amount}</td>
                             <td>${item.value}</td>
-                            <td>${item.volume}</td>
+                            <td>${item.volume.toFixed(2)}</td>
                         </tr>
                     `).join('')}
             </tbody>
@@ -30,7 +30,7 @@ class BusinessView extends View{
             <tfoot>
                 <td colspan="3"></td>
                 <td>
-                    ${model.totalVolume}
+                    ${model.totalVolume.toFixed(2)}
                 </td>
             </tfoot>
         </table>`

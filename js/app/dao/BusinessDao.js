@@ -21,4 +21,30 @@ class BusinessDao{
             }
         });
     }
+
+    listAll(){
+        return new Promise((resolve, reject) => {
+            let cursor = this._connection 
+                .transaction([this._store], 'readwrite')
+                .objectStore(this._store)
+                .openCursor();
+
+                let business = [];
+                cursor.onsuccess = e => {
+                    let current = e.target.result;
+                    if(current){
+                        let data = current.value;
+                        business.push(new Business(data._date, data._amount, data._value));
+                        current.continue();
+                    }else{
+                       resolve(business);
+                    }
+                }
+
+                cursor.onerror = e => {
+                    console.log(e.target.error);
+                    reject('Nao foi possível listar as negociaçoes')
+                }
+        });
+    }
 }

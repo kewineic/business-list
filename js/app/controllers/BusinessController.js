@@ -20,6 +20,16 @@ class BusinessController{
             new MessageView($("#messageView")),
             'text'
         );
+
+        ConnectionFactory
+            .getConnection()
+            .then(connection => new BusinessDao(connection))
+            .then(dao => dao.listAll())
+            .then(response => {
+                response.forEach(business => {
+                    this._businessList.add(business)
+                })
+            });       
     }
 
     add(event){
@@ -29,7 +39,6 @@ class BusinessController{
             .getConnection()
             .then(connection => {
                 let business = this._createNegotiation();
-                alert('funfou')
                 new BusinessDao(connection)
                     .add(business)
                     .then(() => {    
@@ -61,8 +70,8 @@ class BusinessController{
     _createNegotiation(){
         return new Business(
             DateHelper.stringToDate(this._inputDate.value), 
-            this._inputAmount.value,
-            this._inputValue.value
+            parseInt(this._inputAmount.value),
+            parseFloat(this._inputValue.value)
         );
     }
 
