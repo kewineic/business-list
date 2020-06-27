@@ -29,7 +29,11 @@ class BusinessController{
                 response.forEach(business => {
                     this._businessList.add(business)
                 })
-            });       
+            })
+            .catch(erro => {
+                console.log(erro)
+                this._message = erro
+            });
     }
 
     add(event){
@@ -65,6 +69,15 @@ class BusinessController{
     exclude(){
         this._businessList.delete();
         this._message.text = "Lista de negociação apagada com sucesso!";
+
+        ConnectionFactory
+            .getConnection()
+            .then(connection => new BusinessDao(connection))
+            .then(dao => dao.clearAll())
+            .then(message => {
+                this._message.text = message
+                this._businessList.delete();
+            })
     }
 
     _createNegotiation(){
