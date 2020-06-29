@@ -59,9 +59,15 @@ class BusinessController{
         let service = new BusinessService;   
         service
             .getAllBusiness()
+            .then(response => 
+                response.filter(business =>
+                    !this._businessList.negotiations.some(businessExistent => 
+                        JSON.stringify(business) == JSON.stringify(businessExistent)))
+            )
             .then(response => {
-                response.forEach(business => this._businessList.add(business));
-                this._message.text = 'Negociações do período importadas com sucesso';
+                response.forEach(business => 
+                    this._businessList.add(business));
+                    this._message.text = 'Negociações do período importadas com sucesso';
             })
             .catch(err => this._message.text = err);
     }
