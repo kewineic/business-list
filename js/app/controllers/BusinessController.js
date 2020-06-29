@@ -6,6 +6,7 @@ class BusinessController{
         this._inputAmount = $("#amount");
         this._inputValue = $("#value");   
         this._currentSort = '';
+        this._service = new BusinessService()
 
    
         this._businessList = new Bind(
@@ -21,43 +22,37 @@ class BusinessController{
             'text'
         );
 
-        ConnectionFactory
-            .getConnection()
-            .then(connection => new BusinessDao(connection))
-            .then(dao => dao.listAll())
-            .then(response => {
-                response.forEach(business => {
-                    this._businessList.add(business)
-                })
-            })
-            .catch(erro => {
-                console.log(erro)
-                this._message = erro
-            });
+        this._init();
+    }
+
+    _init(){
+        this._service
+            .list()
+            .then(businessList => 
+                businessList.forEach(business => 
+                    this._businessList.add(business)))
+            .catch(err => this._message.text = err);
     }
 
     add(event){
         event.preventDefault();
 
-        ConnectionFactory
-            .getConnection()
-            .then(connection => {
-                let business = this._createNegotiation();
-                new BusinessDao(connection)
-                    .add(business)
-                    .then(() => {    
-                        this._businessList.add(business);
-                        this._message.text = 'Negociação adicionada com sucesso';
-                        this._cleanForm();
-                    });
+        let negotiation = this._createNegotiation();
+
+        this._service
+            .register(negotiation)
+            .then(message => {
+                this._businessList.add(negotiation);
+                this._message.text = message;
+                this._cleanForm();
             })
-            .catch(erro => this._message.text = erro);
+            .catch(err => this._message.text = err);
+
     }   
 
     importBusiness(){
 
-        let service = new BusinessService;   
-        service
+        this._service
             .getAllBusiness()
             .then(response => 
                 response.filter(business =>
@@ -73,17 +68,15 @@ class BusinessController{
     }
 
     exclude(){
-        this._businessList.delete();
-        this._message.text = "Lista de negociação apagada com sucesso!";
-
-        ConnectionFactory
-            .getConnection()
-            .then(connection => new BusinessDao(connection))
-            .then(dao => dao.clearAll())
+        // this._businessList.delete();
+        // this._message.text = "Lista de negociação apagada com sucesso!";
+        this._service
+            .delete()
             .then(message => {
-                this._message.text = message
-                this._businessList.delete();
+                this._message.text = message;
+                this._businessList.delete(); 
             })
+            .catch(err => this._message.text = err);
     }
 
     _createNegotiation(){

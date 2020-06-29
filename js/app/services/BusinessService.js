@@ -61,4 +61,39 @@ class BusinessService{
         this._businessList.delete();
         this._message.text = "Lista de negociação apagada com sucesso!";
     }
+
+    register(business){
+        return ConnectionFactory
+            .getConnection()
+            .then(connection => new BusinessDao(connection))
+            .then(dao => dao.add(business))
+            .then(() => 'Negociaçao cadastrada com sucesso')
+            .catch(err =>{
+                console.log(err)
+                throw new Error('Nao foi possível adicionar a negociaçao')
+            });
+    }
+
+    list(){
+        return ConnectionFactory
+            .getConnection()
+            .then(connection => new BusinessDao(connection))
+            .then(dao => dao.listAll())
+            .catch(err => {
+                console.log(err)
+                throw new Error('Nao foi possível obter as negociaçoes')
+            })
+    }
+
+    delete(){
+        return ConnectionFactory
+            .getConnection()
+            .then(connection => new BusinessDao(connection))
+            .then(dao => dao.clearAll())
+            .then(() => 'Negociaçoes apagadas com sucesso')
+            .catch(erro => {
+                console.log(err)
+                throw new Error ('Nao foi possível apagar as negociaçoes')
+            });
+    }
 }
