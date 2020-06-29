@@ -51,25 +51,16 @@ class BusinessController{
     }   
 
     importBusiness(){
-
         this._service
-            .getAllBusiness()
-            .then(response => 
-                response.filter(business =>
-                    !this._businessList.negotiations.some(businessExistent => 
-                        JSON.stringify(business) == JSON.stringify(businessExistent)))
-            )
-            .then(response => {
-                response.forEach(business => 
-                    this._businessList.add(business));
-                    this._message.text = 'Negociações do período importadas com sucesso';
-            })
+            .import(this._businessList.negotiations)
+            .then(businessList => businessList.forEach(business => {
+                this._businessList.add(business);
+                this._message.text = 'Negociaçoes do período importadas'
+            }))
             .catch(err => this._message.text = err);
     }
 
     exclude(){
-        // this._businessList.delete();
-        // this._message.text = "Lista de negociação apagada com sucesso!";
         this._service
             .delete()
             .then(message => {

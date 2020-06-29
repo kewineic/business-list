@@ -91,9 +91,24 @@ class BusinessService{
             .then(connection => new BusinessDao(connection))
             .then(dao => dao.clearAll())
             .then(() => 'Negociaçoes apagadas com sucesso')
-            .catch(erro => {
+            .catch(err => {
                 console.log(err)
                 throw new Error ('Nao foi possível apagar as negociaçoes')
             });
+    }
+
+    import(currentList){
+        return this.getAllBusiness()
+        .then(businessList => 
+            businessList.filter(business => 
+                !currentList.some(existentBusiness => 
+                    JSON.stringify(business == JSON.stringify(existentBusiness))
+                )
+            )
+        )
+        .catch(err => {
+            console.log(err);
+            throw new Error('Nao foi possível importar as negociaçoes');
+        });
     }
 }
