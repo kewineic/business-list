@@ -1,6 +1,6 @@
-class MessageView extends View {
+class MessageView extends View{
 
-    constructor(element) {
+    constructor(element){
         super(element);
     }
 
@@ -9,4 +9,3 @@ class MessageView extends View {
         return model.text ? `<p class="alert alert-info">${model.text}</p>` : '<p></p>';
     }
 }
-//# sourceMappingURL=MessageView.js.map

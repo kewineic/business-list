@@ -1,10 +1,10 @@
-class BusinessView extends View {
+class BusinessView extends View{
 
-    constructor(element) {
+    constructor(element){
         super(element);
     }
 
-    template(model) {
+    template(model){
         return `
         <table class="table table-hover table-bordered">
             <thead>
@@ -17,7 +17,7 @@ class BusinessView extends View {
             </thead>
         
             <tbody>
-                ${model.negotiations.map(item => `
+                ${model.negotiations.map(item =>`
                         <tr>
                             <td>${DateHelper.dateToString(item.date)}</td>
                             <td>${item.amount}</td>
@@ -33,8 +33,7 @@ class BusinessView extends View {
                     ${model.totalVolume.toFixed(2)}
                 </td>
             </tfoot>
-        </table>`;
+        </table>`
     }
 
 }
-//# sourceMappingURL=BusinessView.js.map

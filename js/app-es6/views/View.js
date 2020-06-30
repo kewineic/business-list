@@ -1,16 +1,15 @@
-class View {
+class View{
 
-    constructor(element) {
+    constructor(element){
         this._element = element;
     }
 
-    template() {
+    template(){
         throw new Error('The template method must be implemented!!');
     }
 
-    update(model) {
+    update(model){
         this._element.innerHTML = this.template(model);
     }
 
 }
-//# sourceMappingURL=View.js.map
