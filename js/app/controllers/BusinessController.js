@@ -3,13 +3,19 @@
 System.register(["../models/BusinessList.js", "../models/Message.js", "../views/BusinessView.js", "../views/MessageView.js", "../services/BusinessService.js", "../helpers/DateHelper.js", "../helpers/Bind.js", "../models/Business.js"], function (_export, _context) {
     "use strict";
 
-    var BusinessList, Message, BusinessView, MessageView, BusinessService, DateHelper, Bind, Business, _createClass, BusinessController;
+    var BusinessList, Message, BusinessView, MessageView, BusinessService, DateHelper, Bind, Business, _createClass, BusinessController, businessController;
 
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) {
             throw new TypeError("Cannot call a class as a function");
         }
     }
+
+    function currentInstance() {
+        return businessController;
+    }
+
+    _export("currentInstance", currentInstance);
 
     return {
         setters: [function (_modelsBusinessListJs) {
@@ -48,7 +54,7 @@ System.register(["../models/BusinessList.js", "../models/Message.js", "../views/
                 };
             }();
 
-            _export("BusinessController", BusinessController = function () {
+            BusinessController = function () {
                 function BusinessController() {
                     _classCallCheck(this, BusinessController);
 
@@ -150,9 +156,9 @@ System.register(["../models/BusinessList.js", "../models/Message.js", "../views/
                 }]);
 
                 return BusinessController;
-            }());
+            }();
 
-            _export("BusinessController", BusinessController);
+            businessController = new BusinessController();
         }
     };
 });
