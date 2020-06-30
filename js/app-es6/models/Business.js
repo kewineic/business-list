@@ -1,4 +1,4 @@
-class Business{
+export class Business{
 
     constructor(date, amount, value){
         this._date = new Date(date.getTime());
