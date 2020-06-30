@@ -3,13 +3,13 @@
 System.register(["./controllers/BusinessController.js"], function (_export, _context) {
   "use strict";
 
-  var BusinessController, businessController;
+  var currentInstance, businessController;
   return {
     setters: [function (_controllersBusinessControllerJs) {
-      BusinessController = _controllersBusinessControllerJs.BusinessController;
+      currentInstance = _controllersBusinessControllerJs.currentInstance;
     }],
     execute: function () {
-      businessController = new BusinessController();
+      businessController = currentInstance();
 
 
       document.querySelector(".form").onsubmit = businessController.add.bind(businessController);

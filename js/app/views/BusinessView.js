@@ -1,9 +1,9 @@
 "use strict";
 
-System.register(["./View.js", "../helpers/DateHelper.js"], function (_export, _context) {
+System.register(["./View.js", "../helpers/DateHelper.js", "../controllers/BusinessController.js"], function (_export, _context) {
     "use strict";
 
-    var View, DateHelper, _createClass, BusinessView;
+    var View, DateHelper, currentInstance, _createClass, BusinessView;
 
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) {
@@ -40,6 +40,8 @@ System.register(["./View.js", "../helpers/DateHelper.js"], function (_export, _c
             View = _ViewJs.View;
         }, function (_helpersDateHelperJs) {
             DateHelper = _helpersDateHelperJs.DateHelper;
+        }, function (_controllersBusinessControllerJs) {
+            currentInstance = _controllersBusinessControllerJs.currentInstance;
         }],
         execute: function () {
             _createClass = function () {
@@ -66,13 +68,20 @@ System.register(["./View.js", "../helpers/DateHelper.js"], function (_export, _c
                 function BusinessView(element) {
                     _classCallCheck(this, BusinessView);
 
-                    return _possibleConstructorReturn(this, (BusinessView.__proto__ || Object.getPrototypeOf(BusinessView)).call(this, element));
+                    var _this = _possibleConstructorReturn(this, (BusinessView.__proto__ || Object.getPrototypeOf(BusinessView)).call(this, element));
+
+                    element.addEventListener('click', function (event) {
+                        if (event.target.nodeName == 'TH') {
+                            currentInstance().sortting(event.target.textContent.toLowerCase());
+                        }
+                    });
+                    return _this;
                 }
 
                 _createClass(BusinessView, [{
                     key: "template",
                     value: function template(model) {
-                        return "\n        <table class=\"table table-hover table-bordered\">\n            <thead>\n                <tr>\n                    <th onclick=\"businessController.sortting('date')\">DATA</th>\n                    <th onclick=\"businessController.sortting('amount')\">QUANTIDADE</th>\n                    <th onclick=\"businessController.sortting('value')\">VALOR</th>\n                    <th onclick=\"businessController.sortting('volume')\">VOLUME</th>\n                </tr>\n            </thead>\n        \n            <tbody>\n                " + model.negotiations.map(function (item) {
+                        return "\n        <table class=\"table table-hover table-bordered\">\n            <thead>\n                <tr>\n                    <th>DATA</th>\n                    <th>QUANTIDADE</th>\n                    <th>VALOR</th>\n                    <th>VOLUME</th>\n                </tr>\n            </thead>\n        \n            <tbody>\n                " + model.negotiations.map(function (item) {
                             return "\n                        <tr>\n                            <td>" + DateHelper.dateToString(item.date) + "</td>\n                            <td>" + item.amount + "</td>\n                            <td>" + item.value + "</td>\n                            <td>" + item.volume.toFixed(2) + "</td>\n                        </tr>\n                    ";
                         }).join('') + "\n            </tbody>\n        \n            <tfoot>\n                <td colspan=\"3\"></td>\n                <td>\n                    " + model.totalVolume.toFixed(2) + "\n                </td>\n            </tfoot>\n        </table>";
                     }

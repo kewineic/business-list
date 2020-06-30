@@ -1,6 +1,6 @@
-import {BusinessController} from "./controllers/BusinessController.js";
+import {currentInstance} from "./controllers/BusinessController.js";
 
-let businessController = new BusinessController();
+let businessController = currentInstance();
 
 document.querySelector(".form").onsubmit = businessController.add.bind(businessController);
 document.querySelector("#import_button").onclick = businessController.importBusiness.bind(businessController);

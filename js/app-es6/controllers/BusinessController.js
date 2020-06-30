@@ -7,7 +7,7 @@ import {DateHelper} from "../helpers/DateHelper.js";
 import {Bind} from "../helpers/Bind.js";
 import {Business} from "../models/Business.js";
 
-export class BusinessController{
+class BusinessController{
 
     constructor(){
         let $ = document.querySelector.bind(document);
@@ -102,4 +102,10 @@ export class BusinessController{
         }
         this._currentSort = column;
     }
+}
+
+let businessController = new BusinessController();
+
+export function currentInstance(){
+    return businessController
 }
