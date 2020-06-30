@@ -23,4 +23,8 @@ class Business{
         return this._value;
     }
 
+    isEquals(otherNegotiation){
+        return JSON.stringify(this) == JSON.stringify(otherNegotiation);
+    }
+
 }

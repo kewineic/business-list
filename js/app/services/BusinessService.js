@@ -102,7 +102,7 @@ class BusinessService{
         .then(businessList => 
             businessList.filter(business => 
                 !currentList.some(existentBusiness => 
-                    JSON.stringify(business == JSON.stringify(existentBusiness))
+                    business.isEquals(existentBusiness)
                 )
             )
         )
