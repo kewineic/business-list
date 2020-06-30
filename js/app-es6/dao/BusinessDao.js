@@ -1,4 +1,6 @@
-class BusinessDao{
+import {Business} from "../models/Business.js";
+
+export class BusinessDao{
     constructor(connection){
         this._connection = connection; 
         this._store = 'business'; 

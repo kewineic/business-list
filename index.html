@@ -21,7 +21,7 @@
 
     <div id="messageView"></div>
     
-    <form class="form" onsubmit="businessController.add(event)">
+    <form class="form">
         
         <div class="form-group">
             <label for="data">Data</label>
@@ -42,10 +42,10 @@
     </form>
     
     <div class="text-center">
-        <button onclick="businessController.importBusiness()" class="btn btn-primary text-center" type="button">
+        <button class="btn btn-primary text-center" type="button" id="import_button">
             Importar Negociações
         </button>
-        <button onclick="businessController.exclude()" class="btn btn-primary text-center" type="button">
+        <button class="btn btn-primary text-center" type="button" id="exclude_button">
             Apagar
         </button>
     </div> 
@@ -58,22 +58,13 @@
         <a href="https://github.com/kewineic" target="_blank" >&copy; Kewin Costa </a>
     </footer>
 
-    <script src="./js/app/models/Business.js"></script>
-    <script src="./js/app/helpers/DateHelper.js"></script>
-    <script src="./js/app/models/BusinessList.js"></script>
-    <script src="./js/app/models/Message.js"></script>
-    <script src="./js/app/views/View.js"></script>
-    <script src="./js/app/views/BusinessView.js"></script>
-    <script src="./js/app/views/MessageView.js"></script>
-    <script src="./js/app/controllers/BusinessController.js"></script>
-    <script src="./js/app/services/ProxyFactory.js"></script>
-    <script src="./js/app/helpers/Bind.js"></script>
-    <script src="./js/app/services/BusinessService.js"></script>
-    <script src="js/app/services/HttpService.js"></script>
-    <script src="./js/app/services/ConnectionFactory.js"></script>
-    <script src="js/app/dao/BusinessDao.js"></script>
+    <script src="/node_modules/systemjs/dist/system.js"></script>
     <script>
-        var businessController = new BusinessController;
+        System.defaultJSExtensions = true;
+        System.import("./js/app/boot.js").catch(function(err){
+            console.log(err);
+        });
+
     </script>
 </body>
 </html>

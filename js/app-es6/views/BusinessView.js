@@ -1,4 +1,7 @@
-class BusinessView extends View{
+import {View} from "./View.js";
+import {DateHelper} from "../helpers/DateHelper.js";
+
+export class BusinessView extends View{
 
     constructor(element){
         super(element);

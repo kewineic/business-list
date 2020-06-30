@@ -1,4 +1,10 @@
-class BusinessService{
+import {HttpService} from "./HttpService.js";
+import {ConnectionFactory} from "./ConnectionFactory.js";
+import {BusinessDao} from "../dao/BusinessDao.js";
+import {Business} from "../models/Business.js";
+
+
+export class BusinessService{
 
     constructor(){
         this.http = new HttpService();
