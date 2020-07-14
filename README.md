@@ -19,7 +19,10 @@ Lista para controle de negociações com cálculo do volume total e persistênci
 - NODEJS
 
 <BR>
-  
+
+### Como iniciar:
+- Clone, na sua máquina, a aplicação e utilize no NodeJs o comando "npm install" para baixar todas as dependências.
+
 #### Dependências: 
 - "systemjs": "^6.3.3"
 
