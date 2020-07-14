@@ -15,8 +15,8 @@ Lista para controle de negociações com cálculo do volume total e persistênci
 ### Stack:
 - HTML5
 - CSS3
-- JAVASCRIPT
 - NODEJS
+- IndexedDB
 
 <BR>
 
