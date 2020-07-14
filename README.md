@@ -1,3 +1,8 @@
+## Assista ao vídeo de demonstração:
+
+[![Vídeo demonstração.](http://img.youtube.com/vi/TToa5Khe5I8/0.jpg)](http://www.youtube.com/watch?v=TToa5Khe5I8 "Vídeo demonstração.")
+
+
 Dependencias:
 -  "systemjs": "^6.3.3"
 
